@@ -12,8 +12,9 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
     console.log(tweets);
   }
 });
-client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+client.stream('statuses/filter', {track: 'Autowhistler'}, function(stream) {
   stream.on('data', function(tweet) {
+  console.log("Recieved tweet!")
     console.log(tweet.text);
   });
 

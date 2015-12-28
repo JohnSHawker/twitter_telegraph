@@ -19,6 +19,7 @@
   "dependencies": {
     "bluebird": "^3.1.1",
     "morse-node": "^0.1.1",
+    "node-pico": "^2.0.1",
     "twitter": "^1.2.5"
   }
 }

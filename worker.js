@@ -13,7 +13,6 @@ function Worker(queue,processingFunc){
 }
 Worker.prototype = new events.EventEmitter();
 Worker.prototype.processNext = function(){
-  console.log(this.queue,"queue")
   if (this.queue.isEmpty()){
     this.isRunning = false
         this.emit("done")

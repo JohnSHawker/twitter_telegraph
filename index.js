@@ -1,4 +1,5 @@
 console.log("Hello World!");
+var Queue = require ('./queue')
 var Twitter = require('twitter')
 var client = new Twitter({
   consumer_key: process.env.AUTOWHISTLER_CONSUMER_KEY,
@@ -22,3 +23,9 @@ client.stream('statuses/filter', {track: 'Autowhistler'}, function(stream) {
     throw error;
   });
 });
+var queue = new Queue()
+queue.add("asdf")
+queue.add("jkl;").add("qwerty")
+console.log(queue.items)
+console.log(queue.consume())
+console.log(queue.items)

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JohnSHawker/twitter_telegraph#readme",
   "dependencies": {
+    "bluebird": "^3.1.1",
     "twitter": "^1.2.5"
   }
 }

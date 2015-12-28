@@ -1,9 +1,10 @@
 var Queue = require ('./queue')
 var Worker = require ('./worker')
 var Twitter = require('twitter')
+var Promise = require('bluebird')
 
 var queue = new Queue()
-var worker = new Worker(queue)
+var worker = new Worker(queue,processitem)
 var client = new Twitter({
   consumer_key: process.env.AUTOWHISTLER_CONSUMER_KEY,
   consumer_secret: process.env.AUTOWHISTLER_CONSUMER_SECRET,
@@ -30,3 +31,11 @@ client.stream('statuses/filter', {track: 'Autowhistler'}, function(stream) {
 queue.add("asdf")
 queue.add("jkl;")
 queue.add("qwerty")
+function processitem(item){
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      console.log("processing.",item)
+      resolve(item)
+    },1000)
+  })
+}

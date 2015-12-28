@@ -6,4 +6,18 @@ var client = new Twitter({
   access_token_key: process.env.AUTOWHISTLER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.AUTOWHISTLER_ACCESS_TOKEN_SECRET,
 });
-console.log(process.env.AUTOWHISTLER_ACCESS_TOKEN_SECRET);
+var params = {screen_name: 'Autowhistler'};
+client.get('statuses/user_timeline', params, function(error, tweets, response){
+  if (!error) {
+    console.log(tweets);
+  }
+});
+client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+  stream.on('data', function(tweet) {
+    console.log(tweet.text);
+  });
+
+  stream.on('error', function(error) {
+    throw error;
+  });
+});

@@ -2,8 +2,9 @@ var Queue = require ('./queue')
 var Worker = require ('./worker')
 var Twitter = require('twitter')
 var Promise = require('bluebird')
+var morse = require('morse-node').create("ITU")
 
-var queue = new Queue()
+var queue = new Queue(["stuff","bob"])
 var worker = new Worker(queue,processitem)
 var client = new Twitter({
   consumer_key: process.env.AUTOWHISTLER_CONSUMER_KEY,
@@ -34,7 +35,7 @@ queue.add("qwerty")
 function processitem(item){
   return new Promise(function(resolve, reject){
     setTimeout(function(){
-      console.log("processing.",item)
+      console.log("processing.",item,morse.encode(item))
       resolve(item)
     },1000)
   })

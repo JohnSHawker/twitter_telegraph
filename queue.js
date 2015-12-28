@@ -1,6 +1,7 @@
 var events = require('events');
-function Queue(){
-  this.items = []
+
+function Queue(items){
+  this.items = items || []
 }
 Queue.prototype = new events.EventEmitter();
 Queue.prototype.add = function(item){

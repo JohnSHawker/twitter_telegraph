@@ -1,3 +1,5 @@
+var events = require('events');
+
 function Worker(queue,processingFunc){
   this.queue = queue
   this.processingFunc = processingFunc
@@ -7,15 +9,18 @@ function Worker(queue,processingFunc){
       this.processNext()
     }
   }.bind(this))
+  this.processNext()
 }
+Worker.prototype = new events.EventEmitter();
 Worker.prototype.processNext = function(){
   console.log(this.queue,"queue")
   if (this.queue.isEmpty()){
     this.isRunning = false
+        this.emit("done")
     return
   } else {
     this.isRunning = true
-    var item = this.queue.consume()
+        var item = this.queue.consume()
     return this.processingFunc(item)
     .then(function(){
       this.processNext()

@@ -1,8 +1,11 @@
+var events = require('events');
 function Queue(){
   this.items = []
 }
+Queue.prototype = new events.EventEmitter();
 Queue.prototype.add = function(item){
   this.items.push(item)
+  this.emit("item added")
   return this
 }
 Queue.prototype.consume = function(){

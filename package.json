@@ -1,0 +1,22 @@
+{
+  "name": "twitter_telegraph",
+  "version": "1.0.0",
+  "description": "morse code tweet program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnSHawker/twitter_telegraph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnSHawker/twitter_telegraph/issues"
+  },
+  "homepage": "https://github.com/JohnSHawker/twitter_telegraph#readme",
+  "dependencies": {
+    "twitter": "^1.2.5"
+  }
+}

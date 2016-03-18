@@ -69,7 +69,7 @@ class Song {
             // console.log(this.nextY(this.currentTime))
             this.currentTime += this.perSampleElapsed
             out[0][i] = this.nextY(this.currentTime)
-            console.log('out[0][i]', out[0][i])
+            // console.log('out[0][i]', out[0][i])
         }
     }
 }

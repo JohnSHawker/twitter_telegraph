@@ -4,9 +4,12 @@ var Worker = require ('./worker')
 var Promise = require('bluebird')
 var morse = require('morse-node').create("ITU")
 var morseTone = require('./morse-tone')
+var song = require('./song')
+var ttt = require('./text-to-tones')
 
-var queue = new Queue(["i"])
-var worker = new Worker(queue, processTweet)
+// var queue = new Queue(["s", 'o', 's'])
+// var worker = new Worker(queue, processTweet)
+
 // var client = new Twitter({
 //   consumer_key: process.env.AUTOWHISTLER_CONSUMER_KEY,
 //   consumer_secret: process.env.AUTOWHISTLER_CONSUMER_SECRET,
@@ -20,7 +23,7 @@ var worker = new Worker(queue, processTweet)
 //     console.log(tweet.text);
 //     queue.add(tweet.text);
 //   });
-//
+
 //   stream.on('error', function(error) {
 //     throw error;
 //   });
@@ -41,22 +44,47 @@ var worker = new Worker(queue, processTweet)
 //     },1000)
 //   })
 // }
-function processTweet(item){
-  console.log("processTweet ")
-  return new Promise(function(resolve, reject){
-    var encoded = morse.encode(item).split("")
-    var morseQueue = new Queue(encoded)
-    var morseWorker = new Worker(morseQueue, processMorseCharacter)
-    morseWorker.on("done",function(){
-      resolve()
-    })
-  })
-}
-function processMorseCharacter(char){
-  console.log("processing char", char)
-  if (char === "/") return morseTone.wordBreak()
-  if (char === " ") return morseTone.letterBreak()
-  if (char === ".") return morseTone.dit()
-  if (char === "-") return morseTone.dah()
-  throw new error("can't read this!")
-}
+
+
+
+
+//SOUND STUFF WE WERE WORKING ON
+// function processTweet(item){
+//   console.log("processTweet ")
+//   return new Promise(function(resolve, reject){
+//     var encoded = morse.encode(item).split("")
+//     var morseQueue = new Queue(encoded)
+//     var morseWorker = new Worker(morseQueue, processMorseCharacter)
+//     morseWorker.on("done",function(){
+//       resolve()
+//     })
+//   })
+// }
+// function processMorseCharacter(char){
+//   console.log("processing char", char)
+//   if (char === "/") return morseTone.wordBreak()
+//   if (char === " ") return morseTone.letterBreak()
+//   if (char === ".") return morseTone.dit()
+//   if (char === "-") return morseTone.dah()
+//   throw new error("can't read this!")
+// }
+
+
+// console.log(morse.encode('asdf asdf asdf'))
+
+
+var pico = require("node-pico")
+var tones = ttt.textToTones("oo oo")
+console.log('tones', tones)
+
+var s = new song.Song(tones, 300, pico.sampleRate)
+
+pico.play(s.bufferFiller)
+
+
+setTimeout(function() {
+  s.addTones(ttt.textToTones('sos'))
+}, 10000)
+
+console.log('s', s.toneDescriptions)
+
